@@ -6,5 +6,6 @@ class LocatorsElements:
     output_name_locator = "#name"
     output_email_locator = "#email"
     output_currentAddress_locator = "//p[contains(@id, 'currentAddress')]"
+    locator = "new"
     # Check Boxxio
 

@@ -4,7 +4,7 @@ import yaml
 
 @pytest.fixture(scope="session")
 def config():
-    with open("/Users/yuramelika/learn_projects/just_test/config/config.yaml") as f:
+    with open("/Users/yuramelika/learn_projects/playwright-practice/config/config.yaml") as f:
         return yaml.safe_load(f)
 
 @pytest.fixture(scope="session")

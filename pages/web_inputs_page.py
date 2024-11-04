@@ -14,3 +14,6 @@ class WebInputsPage(BasePage):
 
     # def enter_web_input_text(self, text: str):
     #     self.page.locator(self.web_input_text_locator).fill(text)
+
+    def main_branch_test_1(self):
+        pass

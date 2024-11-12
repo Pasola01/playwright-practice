@@ -20,3 +20,9 @@ def page(browser):
     page = context.new_page()
     yield page
     context.close()
+
+
+@pytest.fixture(scope="session")
+def test_data_web_inputs():
+    with open("/Users/yuramelika/learn_projects/playwright-practice/test_data/web_inputs_data.yaml") as f:
+        return yaml.safe_load(f)

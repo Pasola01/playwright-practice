@@ -1,0 +1,10 @@
+valid_username: "validuser"
+invalid_username: "Invalid User"
+flash_msg_registration_successful: "Successfully registered, you can log in now."
+flash_msg_required_fields: "All fields are required."
+flash_msg_password_do_not_match: "Passwords do not match."
+flash_msg_invalid_username: "Invalid username. Usernames can only contain lowercase letters, 
+                                    numbers, and single hyphens, must be between 3 and 39 characters, 
+                                    and cannot start or end with a hyphen."
+password_a: "password_a"
+password_b: "password_b"

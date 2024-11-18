@@ -1,6 +1,7 @@
 import pytest
 from playwright.sync_api import sync_playwright
 import yaml
+import  imaplib
 
 @pytest.fixture(scope="session")
 def config():
@@ -26,6 +27,7 @@ def page(browser):
 def test_data_web_inputs():
     with open("/Users/yuramelika/learn_projects/playwright-practice/test_data/web_inputs_data.yaml") as f:
         return yaml.safe_load(f)
+
 
 @pytest.fixture(scope="session")
 def load_registration_data():

@@ -74,3 +74,36 @@ class GmailReader:
 
         return None
 
+
+    def get_forgot_password_link(self):
+        """Отримання посилання для відновлення пароля з останнього листа."""
+        self.mail.select("inbox")
+
+        # Шукаємо останній лист
+        status, messages = self.mail.search(None, 'ALL')
+        mail_ids = messages[0].split()
+        latest_email_id = mail_ids[-1]
+
+        # Отримуємо дані останнього листа
+        status, msg_data = self.mail.fetch(latest_email_id, "(RFC822)")
+
+        for response_part in msg_data:
+            if isinstance(response_part, tuple):
+                msg = email.message_from_bytes(response_part[1])
+                if msg.is_multipart():
+                    for part in msg.walk():
+                        content_type = part.get_content_type()
+                        content_disposition = str(part.get("Content-Disposition"))
+
+                        if content_type == "text/plain" and "attachment" not in content_disposition:
+                            email_text = part.get_payload(decode=True).decode()
+                            break
+                else:
+                    email_text = msg.get_payload(decode=True).decode()
+
+                # Використовуємо регулярний вираз для пошуку посилання
+                password_link = re.search(r'https://practice\.expandtesting\.com/\S+', email_text)
+                if password_link:
+                    return password_link.group()
+        return None
+

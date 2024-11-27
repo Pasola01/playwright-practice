@@ -10,4 +10,3 @@ class ForgotPasswordPage(BasePage):
 
     def click_retrieve_password(self):
         self.page.get_by_role("button", name="Retrieve password").click()
-

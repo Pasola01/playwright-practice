@@ -21,7 +21,7 @@ def test_open_forgot_password_link(config, page):
     # Need to write expect for this
     gmail_reader = GmailReader(email_user="barry.rockhold@gmail.com", app_password="yncs blvu xjte qkgk")
     gmail_reader.connect()
+    time.sleep(20)
     password_link = gmail_reader.get_forgot_password_link()
     gmail_reader.disconnect()
     forgot_page.page.goto(password_link)
-    time.sleep(10)

@@ -74,7 +74,6 @@ class GmailReader:
 
         return None
 
-
     def get_forgot_password_link(self):
         """Отримання посилання для відновлення пароля з останнього листа."""
         self.mail.select("inbox")
@@ -101,9 +100,9 @@ class GmailReader:
                 else:
                     email_text = msg.get_payload(decode=True).decode()
 
-                # Використовуємо регулярний вираз для пошуку посилання
-                password_link = re.search(r'https://practice\.expandtesting\.com/\S+', email_text)
+                # Використовуємо регулярний вираз для пошуку посилання між "visit" і "use the following credentials"
+                password_link = re.search(r'visit\s(https?://\S+)\sand use the following', email_text)
                 if password_link:
-                    return password_link.group()
+                    return password_link.group(1)  # Повертаємо тільки посилання
         return None
 

@@ -24,12 +24,17 @@ def page(browser):
 
 
 @pytest.fixture(scope="session")
-def test_data_web_inputs():
+def conf_web_inputs():
     with open("/Users/yuramelika/learn_projects/playwright-practice/test_data/web_inputs_data.yaml") as f:
         return yaml.safe_load(f)
 
 
 @pytest.fixture(scope="session")
-def load_registration_data():
+def conf_registration():
     with open("/Users/yuramelika/learn_projects/playwright-practice/test_data/registration_data.yaml") as f:
+        return yaml.safe_load(f)
+
+@pytest.fixture(scope="session")
+def conf_validation_form():
+    with open("/Users/yuramelika/learn_projects/playwright-practice/test_data/form_validation_data.yaml") as f:
         return yaml.safe_load(f)

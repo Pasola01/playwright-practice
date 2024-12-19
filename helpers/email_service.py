@@ -2,6 +2,7 @@ import imaplib
 import email
 import re
 from email.header import decode_header
+import time
 
 
 class GmailReader:
@@ -15,16 +16,45 @@ class GmailReader:
         self.app_password = app_password
         self.mail = None
 
+
     def connect(self) -> None:
         """Підключення до сервера IMAP Gmail."""
         self.mail = imaplib.IMAP4_SSL("imap.gmail.com")
         self.mail.login(self.email_user, self.app_password)
+
+
+    def delete_last_email(self) -> bool:
+        """
+        Видалення останнього листа з папки "INBOX".
+        :return: True, якщо лист успішно видалено, інакше False.
+        """
+        self.mail.select("inbox")
+
+        # Шукаємо всі листи
+        status, messages = self.mail.search(None, 'ALL')
+        if status != "OK" or not messages[0]:
+            return False  # Немає листів для видалення
+
+        # Отримуємо ID останнього листа
+        mail_ids = messages[0].split()
+        latest_email_id = mail_ids[-1]
+
+        # Позначаємо лист для видалення
+        status, _ = self.mail.store(latest_email_id, '+FLAGS', '\\Deleted')
+        if status == "OK":
+            # Підтверджуємо видалення
+            self.mail.expunge()
+            return True
+
+        return False
+
 
     def disconnect(self) -> None:
         """Закриття з'єднання з сервером."""
         if self.mail:
             self.mail.close()
             self.mail.logout()
+
 
     def get_otp(self) -> str | None:
         """Отримання OTP із останнього листа."""
@@ -73,6 +103,8 @@ class GmailReader:
                         return otp_code.group()
 
         return None
+
+
 
     def get_forgot_password_link(self):
         """Отримання посилання для відновлення пароля з останнього листа."""

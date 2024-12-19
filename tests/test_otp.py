@@ -14,7 +14,10 @@ def test_enter_email_for_otp(page, config):
     # # Ініціалізація читача Gmail
     gmail_reader = GmailReader(email_user, app_password)
     gmail_reader.connect()
-    time.sleep(15)
+    time.sleep(85)
     otp_code = gmail_reader.get_otp()
+    gmail_reader.delete_last_email()
     otp_page.enter_otp_code(otp_code)
     otp_page.click_verify_otp_code()
+    gmail_reader.disconnect()
+
